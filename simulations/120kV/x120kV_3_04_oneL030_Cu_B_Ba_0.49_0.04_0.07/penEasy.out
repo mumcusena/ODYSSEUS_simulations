@@ -1,0 +1,428 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>> This is penEasy v.2015-05-30 >>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+Program started on 11 May 2023  06:34:55                                                                               
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION CONFIG v.2013-03-18]
+No. of histories requested: 
+ 4.00000E+09
+Allotted time (s):
+ 2.00000E+04
+Update interval:
+ 1.00000E+02
+Random seeds:
+ 1 1
+Simulation dump requested. Dump file name:
+ penEasy.dmp                                                                     
+Interval between dumps:
+ 1.20000E+03
+>>>> Config initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SOURCE BOX ISOTROPIC GAUSS SPECTRUM v.2014-12-21]
+Memory used by static arrays (MB):
+  7.68000E-01
+Particle type:
+ 2
+Photon polarization physics:
+  not activated
+Coordinates of box center (cm):
+  0.00000E+00  0.00000E+00  0.00000E+00
+Box sides (cm):
+  0.00000E+00  0.00000E+00  0.00000E+00
+FWHMs of x and y distribs. (cm):
+  0.00000E+00  0.00000E+00
+Euler angles for box rotation (deg):
+  0.00000E+00  0.00000E+00  0.00000E+00
+Translation of box center (cm):
+  0.00000E+00  0.00000E+00  0.00000E+00
+Source material:
+ 0
+Direction vector (u,v,w):
+  0.00000E+00  0.00000E+00  1.00000E+00
+Polar angle interval, [theta0,theta1](deg):
+  0.00000E+00  2.57000E+00
+Azimuthal angle interval, phi0 and Dphi (deg):
+  0.00000E+00  3.60000E+02
+Apply to direction same rotation use for box position?
+ Yes
+Reading energy spectrum from file:
+ x120kV.spc                                                                      
+No. of bins read:
+ 120
+Sum of relative probabilities before normalization:
+  1.00001E+05
+FWHM of Gaussian energy distrib. (eV):
+  0.00000E+00
+>>>> BIGS source initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SOURCE PHASE SPACE FILE v.2009-06-15]
+>>>> Source Phase Space File is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION PENGEOM+PENVOX v.2009-06-15]
+ 
+>>>> Initializing quadric geometry >>>>
+Opening quadric geometry file:
+ oneL030.geo                                                                     
+Now calling PENGEOM...
+ 
+0.3 mm shielding material                                               
+9x9 cm2                                                                 
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   1)   Z=100 cm                                            
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 1.000000000000000E+02,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   2)   Z=100.030 cm (0.30 mm thick layer)                  
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 1.000300000000000E+02,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   3)   Y=-4.5 cm                                           
+INDICES=( 0, 0, 0, 0, 0)
+     AY=( 1.000000000000000E+00,   0)       
+     A0=( 4.500000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   4)   Y=+4.5 cm                                           
+INDICES=( 0, 0, 0, 0, 0)
+     AY=( 1.000000000000000E+00,   0)       
+     A0=(-4.500000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   5)   X=-4.5 cm                                           
+INDICES=( 0, 0, 0, 0, 0)
+     AX=( 1.000000000000000E+00,   0)       
+     A0=( 4.500000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   6)   X=4.5 cm                                            
+INDICES=( 0, 0, 0, 0, 0)
+     AX=( 1.000000000000000E+00,   0)       
+     A0=(-4.500000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   1)   Layer 1 (material)                                  
+MATERIAL(   1)
+SURFACE (   1), SIDE POINTER=( 1)
+SURFACE (   2), SIDE POINTER=(-1)
+SURFACE (   3), SIDE POINTER=( 1)
+SURFACE (   4), SIDE POINTER=(-1)
+SURFACE (   5), SIDE POINTER=( 1)
+SURFACE (   6), SIDE POINTER=(-1)
+c                                                                       
+c                                                                       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   7)   Z = 101 cm                                          
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 1.010000000000000E+02,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   8)   Z = 102 cm (detector 1 cm thick)                    
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 1.020000000000000E+02,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   9)   X=-2 cm                                             
+INDICES=( 0, 0, 0, 0, 0)
+     AX=( 1.000000000000000E+00,   0)       
+     A0=( 2.000000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  10)   X=2 cm                                              
+INDICES=( 0, 0, 0, 0, 0)
+     AX=( 1.000000000000000E+00,   0)       
+     A0=(-2.000000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  11)   Y=-2 cm                                             
+INDICES=( 0, 0, 0, 0, 0)
+     AY=( 1.000000000000000E+00,   0)       
+     A0=( 2.000000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  12)   Y=2 cm                                              
+INDICES=( 0, 0, 0, 0, 0)
+     AY=( 1.000000000000000E+00,   0)       
+     A0=(-2.000000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   2)  Air Detector, at 101 cm from the source, 1 cm from th
+MATERIAL(   2)
+SURFACE (   7), SIDE POINTER=( 1)
+SURFACE (   8), SIDE POINTER=(-1)
+SURFACE (   9), SIDE POINTER=( 1)
+SURFACE (  10), SIDE POINTER=(-1)
+SURFACE (  11), SIDE POINTER=( 1)
+SURFACE (  12), SIDE POINTER=(-1)
+c                                                                       
+c                                                                       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  13)   sphere diameter=400                                 
+INDICES=( 1, 1, 1, 0,-1)
+X-SCALE=( 2.000000000000000E+02,   0)       
+Y-SCALE=( 2.000000000000000E+02,   0)       
+Z-SCALE=( 2.000000000000000E+02,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   3)  enclosure (air)                                      
+MATERIAL(   3)
+BODY    (   1)
+BODY    (   2)
+SURFACE (  13), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+END      0000000000000000000000000000000000000000000000000000000
+
+
+
+*****************************************
+****     PENGEOM (version 2014)      ****
+****  Constructive Quadric Geometry  ****
+*****************************************
+
+
+
+************  Genealogical tree. 
+
+
+*** BODY   =    1,  KMOTH =    4,  MAT =  1
+KSURF =    1    2    3    4    5    6   14
+KFLAG =    2    1    2    1    2    1    1
+
+*** BODY   =    2,  KMOTH =    4,  MAT =  2
+KSURF =    7    8    9   10   11   12   14
+KFLAG =    2    1    2    1    2    1    1
+
+*** BODY   =    3,  KMOTH =    4,  MAT =  3
+KBODY =    1    2
+KSURF =    1    2    3    4    5    6    7    8    9   10   11   12   13   14
+KFLAG =    3    3    3    3    3    3    3    3    3    3    3    3    1    1
+
+*** MODULE =    4,  KMOTH =    0,  MAT =  0
+KDGHT =    1    2    3    4
+KSURF =   14    1    2    3    4    5    6    7    8    9   10   11   12   13
+KFLAG =    1    4    4    4    4    4    4    4    4    4    4    4    4    4
+
+
+************  Adequacy of the geometry definition.
+
+The largest number of bodies in a module or
+     bodies limiting a single body is ............    4
+
+The largest number of limiting surfaces for
+     a single body or module is ..................   14
+
+
+The simulation of this geometry will be relatively fast,
+     no further optimization seems to be required.
+
+************  The end.
+ 
+>>>> Quadric geometry initialization finished >>>>
+ 
+No voxels geometry file defined.
+ 
+No. of materials referenced in the geometry:
+ 3
+ 
+>>>> Geometry initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION PENELOPE v.2009-10-01]
+ 
+MAT#  FILENAME             EABS(e-)  EABS(ph)  EABS(e+)  C1        C2        WCC       WCR       DSMAX
+ 1    mat.mat              1.000E+05 1.000E+04 1.000E+05 1.000E-01 1.000E-01 1.000E+05 1.000E+04 1.000E+30
+ 2    Aire.mat             1.000E+05 1.000E+04 1.000E+05 1.000E-01 1.000E-01 1.000E+05 1.000E+04 1.000E-01
+ 3    Aire.mat             1.000E+05 1.000E+04 1.000E+05 1.000E-01 1.000E-01 1.000E+05 1.000E+04 1.000E+30
+ 
+Now calling PEINIT...
+ 
+
+ **********************************
+ **   PENELOPE  (version 2014)   **
+ **********************************
+
+ EMIN = 1.0000E+04 eV,  EMAX = 1.2012E+05 eV
+
+
+ **********************
+ **   1st material   **
+ **********************
+
+ Material data file: mat.mat             
+
+ *** Simulation parameters:
+     Electron absorption energy = 1.0000E+05 eV
+       Photon absorption energy = 1.0000E+04 eV
+     Positron absorption energy = 1.0000E+05 eV
+      C1 = 1.0000E-01,       C2 = 1.0000E-01
+     WCC = 1.0000E+05 eV,   WCR = 1.0000E+04 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material:                 Cu_B_Ba_0.49_0.04_0.07                        
+ Mass density = 1.95240601E+00 g/cm**3
+ Number of elements in the molecule =  5
+    Element: H  (Z= 1), atoms/molecule = 1.00000000E+00
+    Element: C  (Z= 6), atoms/molecule = 4.99982168E-01
+    Element: Cu (Z=29), atoms/molecule = 1.35195805E-01
+    Element: B  (Z= 5), atoms/molecule = 6.48708336E-02
+    Element: Ba (Z=56), atoms/molecule = 8.93692215E-03
+ Mean excitation energy = 1.41079137E+02 eV
+ PENELOPE (v. 2014)  End of material data file ........
+
+
+ **********************
+ **   2nd material   **
+ **********************
+
+ Material data file: Aire.mat            
+
+ *** Simulation parameters:
+     Electron absorption energy = 1.0000E+05 eV
+       Photon absorption energy = 1.0000E+04 eV
+     Positron absorption energy = 1.0000E+05 eV
+      C1 = 1.0000E-01,       C2 = 1.0000E-01
+     WCC = 1.0000E+05 eV,   WCR = 1.0000E+04 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: AIR, DRY (NEAR SEA LEVEL)  (104)                              
+ Mass density = 1.20479000E-03 g/cm**3
+ Number of elements in the molecule =  4
+    Element: C  (Z= 6), atoms/molecule = 1.50187000E-04
+    Element: N  (Z= 7), atoms/molecule = 7.84430000E-01
+    Element: O  (Z= 8), atoms/molecule = 2.10748000E-01
+    Element: Ar (Z=18), atoms/molecule = 4.67111000E-03
+ Mean excitation energy = 8.57000000E+01 eV
+ PENELOPE (v. 2014)  End of material data file ........
+
+
+ **********************
+ **   3rd material   **
+ **********************
+
+ Material data file: Aire.mat            
+
+ *** Simulation parameters:
+     Electron absorption energy = 1.0000E+05 eV
+       Photon absorption energy = 1.0000E+04 eV
+     Positron absorption energy = 1.0000E+05 eV
+      C1 = 1.0000E-01,       C2 = 1.0000E-01
+     WCC = 1.0000E+05 eV,   WCR = 1.0000E+04 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: AIR, DRY (NEAR SEA LEVEL)  (104)                              
+ Mass density = 1.20479000E-03 g/cm**3
+ Number of elements in the molecule =  4
+    Element: C  (Z= 6), atoms/molecule = 1.50187000E-04
+    Element: N  (Z= 7), atoms/molecule = 7.84430000E-01
+    Element: O  (Z= 8), atoms/molecule = 2.10748000E-01
+    Element: Ar (Z=18), atoms/molecule = 4.67111000E-03
+ Mean excitation energy = 8.57000000E+01 eV
+ PENELOPE (v. 2014)  End of material data file ........
+ 
+CPU time used to init PENELOPE (s):
+      5.73
+ 
+>>>> PENELOPE initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY VOXEL DOSE v.2014-12-27]
+>>>> Tally Voxel Dose Distribution is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY SPATIAL DOSE DISTRIB v.2009-06-15]
+>>>> Tally Spatial Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY CYLINDRICAL DOSE DISTRIB v.2009-06-15]
+Memory used by static arrays (MB):
+  4.00000E+00
+>>>> Tally Cylindrical Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY SPHERICAL DOSE DISTRIB v.2009-06-15]
+Memory used by static arrays (MB):
+  1.28000E+00
+>>>> Tally Spherical Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY ENERGY DEPOSITION v.2012-06-01]
+Memory used by static arrays (MB):
+  2.40000E-04
+Detection material set to:
+ 3
+Relative uncertainty (%) requested:
+  2.00000E+00
+>>>> EDP tally initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PULSE HEIGHT SPECTRUM v.2012-06-01]
+Memory used by static arrays (MB):
+  5.12000E-01
+>>>> Tally Pulse Height Spectrum is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PIXELATED IMAGING DETECTOR v.2015-02-06]
+>>>> Tally Pixelated Imaging Detector is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY FLUENCE TRACK LENGTH v.2012-06-01]
+Memory used by static arrays (MB):
+  3.58400E+00
+Detection material set to:
+ 3
+Spectrum limits [Emin,Emax] (eV) and no. bins:
+  1.00000E+04  8.00000E+04 70 linear scale
+Relative uncertainty (%) requested:
+  0.00000E+00
+>>>> FTL tally initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PHASE SPACE FILE v.2009-06-15]
+>>>> Tally Phase Space File is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PARTICLE CURRENT SPECTRUM v.2009-06-15]
+Memory used by static arrays (MB):
+  3.07200E+00
+>>>> Tally Particle Current Spectrum is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PARTICLE TRACK STRUCTURE v.2009-06-15]
+>>>> Tally Particle Track Structure is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION INTERACTION FORCING v.2009-06-15]
+>>>> Interaction Forcing is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SPLITTING v.2015-05-30]
+>>>> Particle splitting is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION RUSSIAN ROULETTE v.2009-06-15]
+>>>> Russian roulette is OFF >>>>
+ 
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+init: INITIALIZATION ENDED
+Elapsed real time:   110.76 s
+Elapsed CPU time :     5.75 s
+Memory used by penEasy arrays: 1.5E+01 MB
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+report: SIMULATION ENDED
+Results have been written to the corresponding DAT files.
+The requested uncertainty has NOT been reached.
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+Last random seeds:
+ 756319924 2132211651
+Elapsed real time (s), excluding init:
+  2.00000E+04
+Elapsed CPU time (s), excluding init:
+  1.04603E+03
+Each report update took (in CPU s):
+  1.46484E-03
+No. of histories simulated:
+         161404679.
+CPU Speed (histories/s):
+  1.54303E+05
+ 
+Program ended on 11 May 2023  12:10:06                                                                               
+ 
+Have a nice day.
