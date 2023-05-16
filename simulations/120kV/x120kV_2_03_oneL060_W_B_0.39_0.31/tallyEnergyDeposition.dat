@@ -1,0 +1,25 @@
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# [SECTION REPORT ENERGY DEPOSITION]
+# Units are eV per history
+#
+# Material : Energy (eV/hist) : +-2sigma
+   1  1.19364E+04  3.5E+00
+   2  5.16270E-01  2.2E-02
+   3  4.82391E+02  6.2E-01
+ 
+# Performance report
+#   Random seeds:
+#    222623229
+#    279328237
+#   No. of histories simulated [N]:
+#           163346878.
+#   CPU time [t] (s):
+#    1.03778E+03
+#   Speed (histories/s):
+#    1.57400E+05
+#   Uncertainty of energy deposition in detector material, in % [uncert]:
+#    1.28000E-01
+#   Intrinsic efficiency [N*uncert^2]^-1:
+#    3.73652E-07
+#   Absolute efficiency [t*uncert^2]^-1:
+#    5.88127E-02

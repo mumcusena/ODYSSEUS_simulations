@@ -43,7 +43,7 @@ for energy in Energies:
             directory_list = f.read().splitlines()
 
         for directory in os.listdir(parent_dir_path):
-            if directory == 'N30_030_0' or directory == 'N30_030_1':
+            if directory == 'N30_030_0' or directory == 'N30_030_1' or directory == 'directory_list_30kV.txt':
                 continue
             if directory in directory_list:
                 # Directory already in the list, continue
@@ -60,7 +60,7 @@ for energy in Energies:
                 f.write("\n".join(directory_list))
             
             # Stop the loop if the counter reaches 20
-            if counter == 40:
+            if counter == 10:
                 break
     if energy == "RQR6_080":
         tmux = Tmux("RQR6_080", 999)
@@ -79,7 +79,7 @@ for energy in Energies:
             directory_list = f.read().splitlines()
 
         for directory in os.listdir(parent_dir_path):
-            if directory == 'RQR6_080_0' or directory == 'RQR6_080_1':
+            if directory == 'RQR6_080_0' or directory == 'RQR6_080_1' or directory == 'directory_list_80kV.txt':
                 continue
             if directory in directory_list:
                 # Directory already in the list, continue
@@ -96,7 +96,7 @@ for energy in Energies:
                 f.write("\n".join(directory_list))
             
             # Stop the loop if the counter reaches 20
-            if counter == 40:
+            if counter == 10:
                 break
     if energy == "RQR8_100":
         tmux = Tmux("RQR8_100", 999)
@@ -115,7 +115,7 @@ for energy in Energies:
             directory_list = f.read().splitlines()
 
         for directory in os.listdir(parent_dir_path):
-            if directory == 'RQR8_100_0' or directory == 'RQR8_100_1':
+            if directory == 'RQR8_100_0' or directory == 'RQR8_100_1' or directory == 'directory_list_100kV.txt':
                 continue
             if directory in directory_list:
                 # Directory already in the list, continue
@@ -132,7 +132,7 @@ for energy in Energies:
                 f.write("\n".join(directory_list))
             
             # Stop the loop if the counter reaches 20
-            if counter == 40:
+            if counter == 10:
                 break
     if energy == "x120kV":
         tmux = Tmux("x120kV", 999)
@@ -151,7 +151,7 @@ for energy in Energies:
             directory_list = f.read().splitlines()
 
         for directory in os.listdir(parent_dir_path):
-            if directory == 'x120kV_0' or directory == 'x120kV_1':
+            if directory == 'x120kV_0' or directory == 'x120kV_1' or directory == 'directory_list_120kV.txt':
                 continue
             if directory in directory_list:
                 # Directory already in the list, continue
@@ -168,6 +168,6 @@ for energy in Energies:
                 f.write("\n".join(directory_list))
             
             # Stop the loop if the counter reaches 20
-            if counter == 40:
+            if counter == 10:
                 break
 
