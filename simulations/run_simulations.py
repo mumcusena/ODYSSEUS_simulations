@@ -60,7 +60,7 @@ for energy in Energies:
                 f.write("\n".join(directory_list))
             
             # Stop the loop if the counter reaches 20
-            if counter == 20:
+            if counter == 50:
                 break
     if energy == "RQR6_080":
         tmux = Tmux("RQR6_080", 999)
@@ -96,7 +96,7 @@ for energy in Energies:
                 f.write("\n".join(directory_list))
             
             # Stop the loop if the counter reaches 20
-            if counter == 20:
+            if counter == 50:
                 break
     if energy == "RQR8_100":
         tmux = Tmux("RQR8_100", 999)
@@ -132,7 +132,7 @@ for energy in Energies:
                 f.write("\n".join(directory_list))
             
             # Stop the loop if the counter reaches 20
-            if counter == 20:
+            if counter == 50:
                 break
     if energy == "x120kV":
         tmux = Tmux("x120kV", 999)
@@ -168,6 +168,6 @@ for energy in Energies:
                 f.write("\n".join(directory_list))
             
             # Stop the loop if the counter reaches 20
-            if counter == 20:
+            if counter == 50:
                 break
 
