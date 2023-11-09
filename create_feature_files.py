@@ -163,11 +163,8 @@ def flatten_basic(file_name, geo_number, spc, aire_energy):
     if os.path.exists(tally_file_path):
         with open("tallyEnergyDeposition.dat", 'r') as file:
                 content = file.read()
-                
                 # Use regular expression to find the value after '2' in the 'Material' line
                 match = re.search(r'^\s*2\s+([0-9.]+[Ee][+-]\d+)\s*', content, re.MULTILINE)
-
-                
                 if match:
                     value = float(match.group(1))
         print(value, aire_energy)
