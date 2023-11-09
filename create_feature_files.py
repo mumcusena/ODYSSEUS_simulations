@@ -128,8 +128,9 @@ def photoelectric(file_name):
                 all_photoelectric_svd.append(single_value_decomp(data))
     #flattened_data = [value for row in data for value in row]
     return all_photoelectric_svd
+ 
 
-def flatten_basic(file_name):
+def flatten_basic(file_name, geo_number, spc, aire_energy):
     mass_den = mass_density(file_name)
     atomic_number, atom_per_molecule = atomic_num_atom_per_mol(file_name)
     mean_excit = mean_excitation(file_name)
@@ -145,7 +146,7 @@ def flatten_basic(file_name):
     # Initializing lists for CSV data
     csv_columns = ['mass_den', 'atom_num_1', 'atom_per_mol_1', 'atom_num_2', 'atom_per_mol_2',
                 'atom_num_3', 'atom_per_mol_3', 'atom_num_4', 'atom_per_mol_4', 'atom_num_5',
-                'atom_per_mol_5', 'mean_excit']
+                'atom_per_mol_5', 'mean_excit', 'thickness', 'spc', 'energy_ratio']
 
     csv_data = [mass_den]
 
@@ -157,8 +158,28 @@ def flatten_basic(file_name):
     while len(csv_data) < len(csv_columns):
         csv_data.append(-1)
 
+    most_curr_path = os.getcwd()
+    tally_file_path = os.path.join(most_curr_path, 'tallyEnergyDeposition.dat')
+    if os.path.exists(tally_file_path):
+        with open("tallyEnergyDeposition.dat", 'r') as file:
+                content = file.read()
+                # Use regular expression to find the value after '2' in the 'Material' line
+                match = re.search(r'^\s*2\s+([0-9.]+[Ee][+-]\d+)\s*', content, re.MULTILINE)
+                if match:
+                    value = float(match.group(1))
+        print(value, aire_energy)
+        energy_ratio = value / (1.0 * aire_energy)
+    else:
+        energy_ratio = 1
+    csv_data.pop()
+    csv_data.pop()
+    csv_data.pop()
     csv_data.pop()
     csv_data.append(mean_excitation_energy)
+    csv_data.append(geo_number)
+    csv_data.append(spc)
+    csv_data.append(energy_ratio)
+
 
     # Create CSV file
     with open('basic_features.csv', 'w', newline='') as csvfile:
@@ -185,8 +206,13 @@ for directory in os.listdir(current_path):
                     all_files = os.listdir(os.path.join(os.path.join(os.path.join(current_path, directory),sub_directory),sub_sub_directory))
                     mat_files = [file for file in all_files if file.endswith('.mat') and file != 'Aire.mat']
                     if len(mat_files) == 1:
+                        geo_file_pattern = re.compile(r'oneL(\d+).geo')
+                        geo_files = [file for file in all_files if geo_file_pattern.match(file)]
+                        geo_file_name = geo_files[0]
+                        geo_number_match = geo_file_pattern.match(geo_file_name)
+                        geo_number = int(geo_number_match.group(1))
                         mat_file_name = mat_files[0]
-                        flatten_basic(mat_files[0])
+                        flatten_basic(mat_files[0], geo_number, 30, float(1.92544E+00))
                     else:
                         print("There are either zero or multiple '.mat' files in the directory. ", os.path.join(os.path.join(os.path.join(current_path, directory),sub_directory),sub_sub_directory))
             elif sub_directory == "directory_list_30kV.txt" or sub_directory == "ref":
@@ -196,8 +222,13 @@ for directory in os.listdir(current_path):
                 all_files = os.listdir(os.path.join(os.path.join(current_path, directory),sub_directory))
                 mat_files = [file for file in all_files if file.endswith('.mat') and file != 'Aire.mat']
                 if len(mat_files) == 1:
+                    geo_file_pattern = re.compile(r'oneL(\d+).geo')
+                    geo_files = [file for file in all_files if geo_file_pattern.match(file)]
+                    geo_file_name = geo_files[0]
+                    geo_number_match = geo_file_pattern.match(geo_file_name)
+                    geo_number = int(geo_number_match.group(1))
                     mat_file_name = mat_files[0]
-                    flatten_basic(mat_files[0])
+                    flatten_basic(mat_files[0], geo_number, 30, float(1.92544E+00))
                 else:
                     print("There are either zero or multiple '.mat' files in the directory. ", os.path.join(os.path.join(current_path, directory),sub_directory))
 
@@ -209,8 +240,13 @@ for directory in os.listdir(current_path):
                     all_files = os.listdir(os.path.join(os.path.join(os.path.join(current_path, directory),sub_directory),sub_sub_directory))
                     mat_files = [file for file in all_files if file.endswith('.mat') and file != 'Aire.mat']
                     if len(mat_files) == 1:
+                        geo_file_pattern = re.compile(r'oneL(\d+).geo')
+                        geo_files = [file for file in all_files if geo_file_pattern.match(file)]
+                        geo_file_name = geo_files[0]
+                        geo_number_match = geo_file_pattern.match(geo_file_name)
+                        geo_number = int(geo_number_match.group(1))
                         mat_file_name = mat_files[0]
-                        flatten_basic(mat_files[0])
+                        flatten_basic(mat_files[0], geo_number, 80, float(8.71549E-01))
                     else:
                         print("There are either zero or multiple '.mat' files in the directory. ", os.path.join(os.path.join(os.path.join(current_path, directory),sub_directory),sub_sub_directory))
             elif sub_directory == "directory_list_80kV.txt":
@@ -220,8 +256,13 @@ for directory in os.listdir(current_path):
                 all_files = os.listdir(os.path.join(os.path.join(current_path, directory),sub_directory))
                 mat_files = [file for file in all_files if file.endswith('.mat') and file != 'Aire.mat']
                 if len(mat_files) == 1:
+                    geo_file_pattern = re.compile(r'oneL(\d+).geo')
+                    geo_files = [file for file in all_files if geo_file_pattern.match(file)]
+                    geo_file_name = geo_files[0]
+                    geo_number_match = geo_file_pattern.match(geo_file_name)
+                    geo_number = int(geo_number_match.group(1))
                     mat_file_name = mat_files[0]
-                    flatten_basic(mat_files[0])
+                    flatten_basic(mat_files[0], geo_number, 80, float(8.71549E-01))
                 else:
                     print("There are either zero or multiple '.mat' files in the directory. ", os.path.join(os.path.join(current_path, directory),sub_directory))
 
@@ -233,8 +274,13 @@ for directory in os.listdir(current_path):
                     all_files = os.listdir(os.path.join(os.path.join(os.path.join(current_path, directory),sub_directory),sub_sub_directory))
                     mat_files = [file for file in all_files if file.endswith('.mat') and file != 'Aire.mat']
                     if len(mat_files) == 1:
+                        geo_file_pattern = re.compile(r'oneL(\d+).geo')
+                        geo_files = [file for file in all_files if geo_file_pattern.match(file)]
+                        geo_file_name = geo_files[0]
+                        geo_number_match = geo_file_pattern.match(geo_file_name)
+                        geo_number = int(geo_number_match.group(1))
                         mat_file_name = mat_files[0]
-                        flatten_basic(mat_files[0])
+                        flatten_basic(mat_files[0], geo_number, 100, float(7.73834E-01))
                     else:
                         print("There are either zero or multiple '.mat' files in the directory. ", os.path.join(os.path.join(os.path.join(current_path, directory),sub_directory),sub_sub_directory))
             elif sub_directory == "directory_list_100kV.txt":
@@ -244,8 +290,13 @@ for directory in os.listdir(current_path):
                 all_files = os.listdir(os.path.join(os.path.join(current_path, directory),sub_directory))
                 mat_files = [file for file in all_files if file.endswith('.mat') and file != 'Aire.mat']
                 if len(mat_files) == 1:
+                    geo_file_pattern = re.compile(r'oneL(\d+).geo')
+                    geo_files = [file for file in all_files if geo_file_pattern.match(file)]
+                    geo_file_name = geo_files[0]
+                    geo_number_match = geo_file_pattern.match(geo_file_name)
+                    geo_number = int(geo_number_match.group(1))
                     mat_file_name = mat_files[0]
-                    flatten_basic(mat_files[0])
+                    flatten_basic(mat_files[0], geo_number, 100, float(7.73834E-01))
                 else:
                     print("There are either zero or multiple '.mat' files in the directory. ", os.path.join(os.path.join(current_path, directory),sub_directory))
 
@@ -257,8 +308,13 @@ for directory in os.listdir(current_path):
                     all_files = os.listdir(os.path.join(os.path.join(os.path.join(current_path, directory),sub_directory),sub_sub_directory))
                     mat_files = [file for file in all_files if file.endswith('.mat') and file != 'Aire.mat']
                     if len(mat_files) == 1:
+                        geo_file_pattern = re.compile(r'oneL(\d+).geo')
+                        geo_files = [file for file in all_files if geo_file_pattern.match(file)]
+                        geo_file_name = geo_files[0]
+                        geo_number_match = geo_file_pattern.match(geo_file_name)
+                        geo_number = int(geo_number_match.group(1))
                         mat_file_name = mat_files[0]
-                        flatten_basic(mat_files[0])
+                        flatten_basic(mat_files[0], geo_number, 120, float(6.30952E-01))
                     else:
                         print("There are either zero or multiple '.mat' files in the directory. ", os.path.join(os.path.join(os.path.join(current_path, directory),sub_directory),sub_sub_directory))
             elif sub_directory == "directory_list_120kV.txt":
@@ -268,7 +324,12 @@ for directory in os.listdir(current_path):
                 all_files = os.listdir(os.path.join(os.path.join(current_path, directory),sub_directory))
                 mat_files = [file for file in all_files if file.endswith('.mat') and file != 'Aire.mat']
                 if len(mat_files) == 1:
+                    geo_file_pattern = re.compile(r'oneL(\d+).geo')
+                    geo_files = [file for file in all_files if geo_file_pattern.match(file)]
+                    geo_file_name = geo_files[0]
+                    geo_number_match = geo_file_pattern.match(geo_file_name)
+                    geo_number = int(geo_number_match.group(1))
                     mat_file_name = mat_files[0]
-                    flatten_basic(mat_files[0])
+                    flatten_basic(mat_files[0], geo_number, 120, float(6.30952E-01))
                 else:
                     print("There are either zero or multiple '.mat' files in the directory. ", os.path.join(os.path.join(current_path, directory),sub_directory), mat_files)
