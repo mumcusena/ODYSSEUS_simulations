@@ -1,2 +1,2 @@
-mass_den,atom_num_1,atom_per_mol_1,atom_num_2,atom_per_mol_2,atom_num_3,atom_per_mol_3,atom_num_4,atom_per_mol_4,atom_num_5,atom_per_mol_5,mean_excit
-2.27979614,1,0.7006931,6,0.350334055,50,0.0745123716,5,1.0,-1,-1,128.98438
+mass_den,atom_num_1,atom_per_mol_1,atom_num_2,atom_per_mol_2,atom_num_3,atom_per_mol_3,atom_num_4,atom_per_mol_4,atom_num_5,atom_per_mol_5,mean_excit,thickness,spc,energy_ratio
+2.27979614,1,0.7006931,6,0.350334055,50,0.0745123716,5,1.0,-1,-1,128.98438,60,30,0.5309331892969918
