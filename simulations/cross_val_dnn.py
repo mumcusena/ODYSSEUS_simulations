@@ -35,6 +35,7 @@ for train_index, test_index in kf.split(X_scaled):
     model = keras.Sequential([
         layers.Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
         layers.Dense(32, activation='relu'),
+        layers.Dropout(0.3),
         layers.Dense(1)
     ])
 
