@@ -24,13 +24,14 @@ scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
 # Define the number of folds for cross-validation
-n_splits = 10
+n_splits = 20
 kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)
 
 # Initialize arrays to store training and validation loss for each fold
-all_train_loss = np.zeros((n_splits, 500))  # 500 is the maximum number of epochs
-all_val_loss = np.zeros((n_splits, 500))    # 500 is the maximum number of epochs
+all_train_loss = np.zeros((n_splits, 200))   
+all_val_loss = np.zeros((n_splits, 200)) 
 mse_scores = []      # List to store MSE scores for each fold
+percentage_errors = [] 
 
 # Define early stopping criteria
 early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
@@ -54,12 +55,17 @@ for i, (train_index, test_index) in enumerate(kf.split(X_scaled)):
     model.compile(optimizer='adam', loss='mean_squared_error')
 
     # Train the model with early stopping
-    history = model.fit(X_train, y_train, epochs=500, batch_size=32,
+    history = model.fit(X_train, y_train, epochs=200, batch_size=32,
                         validation_data=(X_val, y_val), callbacks=[early_stopping], verbose=0)
     
     # Evaluate the model on the test set
     mse = model.evaluate(X_test, y_test, verbose=0)
     mse_scores.append(mse)
+
+    # Calculate and store the percentage error for each fold
+    percentage_error = (mse / np.mean(y_test**2)) * 100
+    percentage_errors.append(percentage_error)
+
 
     # Store training and validation loss for each fold
     all_train_loss[i, :len(history.history['loss'])] = history.history['loss']
@@ -84,6 +90,13 @@ avg_val_loss = np.mean(all_val_loss, axis=0)
 avg_train_loss = np.mean(all_train_loss, axis=0)
 avg_val_loss = np.mean(all_val_loss, axis=0)
 
+# Print and plot percentage errors
+average_percentage_error = np.mean(percentage_errors)
+print(f'Average Percentage Error across {n_splits} folds: {average_percentage_error}%')
+
+percentage_errors_std_dev = np.std(percentage_errors)
+print(f'Standard Deviation of Percentage Error: {percentage_errors_std_dev}%')
+
 
 plt.plot(avg_train_loss, label='Average Training Loss')
 plt.plot(avg_val_loss, label='Average Validation Loss')
@@ -92,8 +105,17 @@ plt.ylabel('Mean Squared Error')
 plt.legend()
 plt.show()
 
+plt.plot(percentage_errors, label=" Percentage Error")
+plt.xlabel('Epochs')
+plt.ylabel('Error Percentage')
+plt.legend()
+plt.show()
+
 # Create a box plot for the MSE scores
 plt.boxplot(mse_scores)
 plt.title('Mean Squared Error across Folds')
 plt.ylabel('Mean Squared Error')
 plt.show()
+
+print(min(mse_scores), max(mse_scores))
+print(min(percentage_errors), max(percentage_errors))
