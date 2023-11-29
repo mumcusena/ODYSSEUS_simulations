@@ -57,3 +57,12 @@ plt.show()
 
 # Make predictions
 predictions = model.predict(X_test_scaled)
+
+# Calculate the errors (residuals)
+errors = y_test - model.predict(X_test_scaled).flatten()
+
+# Plot box plots for errors
+plt.boxplot(errors)
+plt.title('Box Plot of Errors on Test Set')
+plt.ylabel('Errors')
+plt.show()
