@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
 from keras import layers
+from keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
 
 # Load your data
@@ -48,10 +49,12 @@ for train_index, test_index in kf.split(X_scaled):
     ])
 
     # Compile the model
-    model.compile(optimizer='adam', loss='mean_squared_error')
+    optimizer = keras.optimizers.legacy.Adam(learning_rate=0.001)
+    model.compile(optimizer=optimizer, loss='mean_squared_error')
+    early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
 
     # Train the model
-    history = model.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_val, y_val), verbose=0)
+    history = model.fit(X_train, y_train, epochs=100, batch_size=32, validation_data=(X_val, y_val), verbose=0)
     mse = model.evaluate(X_test, y_test, verbose=0)
     mse_scores.append(mse)
     # Store training and validation loss for each fold
