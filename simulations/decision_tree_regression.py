@@ -5,6 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
+from sklearn.model_selection import GridSearchCV
 
 # Load your data
 data = pd.read_csv('all_basic_features.csv')
@@ -24,22 +25,40 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_val_scaled = scaler.transform(X_val)
 X_test_scaled = scaler.transform(X_test)
 
-# Build and train the decision tree model
-tree_model = DecisionTreeRegressor(random_state=42)
-tree_model.fit(X_train_scaled, y_train)
+# Define the hyperparameters and their values for searching
+param_grid = {
+    'max_depth': [None, 5, 10, 15],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4]
+    # You can add more parameters and their values to test
+}
+
+# Initialize the Decision Tree Regressor
+tree = DecisionTreeRegressor(random_state=42)
+
+# Initialize GridSearchCV with the necessary parameters
+grid_search = GridSearchCV(estimator=tree, param_grid=param_grid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1)
+
+# Fit the GridSearchCV to the data (using only the training set and validation set)
+grid_search.fit(np.vstack((X_train_scaled, X_val_scaled)), pd.concat([y_train, y_val]))
+
+# Get the best parameters found by GridSearchCV
+best_params = grid_search.best_params_
+print("Best Hyperparameters:", best_params)
+
+# Retrain the Decision Tree Regressor with the best parameters using the combined training and validation data
+best_tree_model = DecisionTreeRegressor(**best_params, random_state=42)
+best_tree_model.fit(np.vstack((X_train_scaled, X_val_scaled)), pd.concat([y_train, y_val]))
 
 # Evaluate the model on the test set
-mse = mean_squared_error(y_test, tree_model.predict(X_test_scaled))
-print(f'Mean Squared Error on Test Set: {mse}')
-
-baseline_mse = np.mean((y - np.mean(y))**2)
-print(f'Baseline Mean Squared Error: {baseline_mse}')
+mse = mean_squared_error(y_test, best_tree_model.predict(X_test_scaled))
+print(f'Mean Squared Error on Test Set after Hyperparameter Tuning: {mse}')
 
 # Make predictions
-predictions = tree_model.predict(X_test_scaled)
+predictions = best_tree_model.predict(X_test_scaled)
 
 # Calculate the errors (residuals)
-errors = y_test - tree_model.predict(X_test_scaled)
+errors = y_test - best_tree_model.predict(X_test_scaled)
 
 # Plot box plots for errors
 plt.boxplot(errors)
