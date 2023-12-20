@@ -25,8 +25,8 @@ current_path = '/users/sena.mumcu/ODYSSEUS_simulations/simulations'
 print(current_path)
 Energies = ["N30_030", "RQR6_080", "RQR8_100", "x120kV"] 
 
-for energy in Energies:
-    if energy == "N30_030":
+for i in range(1):
+    if Energies[i] == "N30_030":
         tmux = Tmux("N30_030", 999)
         tmux.execute('srun --immediate --container-remap-root --container-image=debian --container-mounts=/users/sena.mumcu/:/home/shared_folder --time=600 --pty bash')
         tmux.execute('cd home/shared_folder/ODYSSEUS_simulations/simulations/30kV')
@@ -64,7 +64,7 @@ for energy in Energies:
             # Stop the loop if the counter reaches 20
             if counter == 50:
                 break
-    if energy == "RQR6_080":
+    if Energies[i] == "RQR6_080":
         tmux = Tmux("RQR6_080", 999)
         tmux.execute('srun --immediate --container-remap-root --container-image=debian --container-mounts=/users/sena.mumcu/:/home/shared_folder --time=600 --pty bash')
         tmux.execute('apt-get update')
@@ -100,7 +100,7 @@ for energy in Energies:
             # Stop the loop if the counter reaches 20
             if counter == 50:
                 break
-    if energy == "RQR8_100":
+    if Energies[i] == "RQR8_100":
         tmux = Tmux("RQR8_100", 999)
         tmux.execute('srun --immediate --container-remap-root --container-image=debian --container-mounts=/users/sena.mumcu/:/home/shared_folder --time=600 --pty bash')
         tmux.execute('apt-get update')
@@ -136,7 +136,7 @@ for energy in Energies:
             # Stop the loop if the counter reaches 20
             if counter == 50:
                 break
-    if energy == "x120kV":
+    if Energies[i] == "x120kV":
         tmux = Tmux("x120kV", 999)
         tmux.execute('srun --immediate --container-remap-root --container-image=debian --container-mounts=/users/sena.mumcu/:/home/shared_folder --time=600 --pty bash')
         tmux.execute('apt-get update')
