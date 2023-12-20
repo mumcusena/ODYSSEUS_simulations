@@ -6,11 +6,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
 from keras import layers
-from keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
 
 # Load your data
-data = pd.read_csv('all_basic_features.csv')
+data = pd.read_csv('experiment_data.csv')
 
 # Drop rows where energy_ratio is 1
 data = data[data['energy_ratio'] != 1]
@@ -55,9 +54,7 @@ for i, (train_index, test_index) in enumerate(kf.split(X_scaled)):
     ])
 
     # Compile the model
-    optimizer = keras.optimizers.legacy.Adam(learning_rate=0.001)
-    model.compile(optimizer=optimizer, loss='mean_squared_error')
-    early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+    model.compile(optimizer='adam', loss='mean_squared_error')
 
     # Train the model with early stopping
     history = model.fit(X_train, y_train, epochs=200, batch_size=32,
@@ -124,3 +121,14 @@ plt.show()
 
 print(min(mse_scores), max(mse_scores))
 print(min(percentage_errors), max(percentage_errors))
+
+# Sample input array
+sample_input = pd.read_csv("input.csv")
+# Standardize the sample input using the same scaler
+sample_input_scaled = scaler.transform(sample_input)
+
+# Make predictions
+prediction = model.predict(sample_input_scaled)
+
+# Print the prediction
+print("Predicted Energy Ratio:", prediction)
