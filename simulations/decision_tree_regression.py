@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import GridSearchCV
 
 # Load your data
-data = pd.read_csv('all_basic_features.csv')
+data = pd.read_csv('../../feature_files/all_basic_features.csv')
 data = data[data['energy_ratio'] != 1]
 
 # Separate features and target variable

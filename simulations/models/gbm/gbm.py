@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 
 # Load your data
-data = pd.read_csv('all_basic_features.csv')
+data = pd.read_csv('../../feature_files/all_basic_features_spc_dist.csv')
 data = data[data['energy_ratio'] != 1]
 
 # Separate features and target variable
