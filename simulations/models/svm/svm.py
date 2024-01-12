@@ -18,12 +18,31 @@ y = data['energy_ratio']
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
 
-# Standardize the data
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_val_scaled = scaler.transform(X_val)
-X_test_scaled = scaler.transform(X_test)
+columns_to_scale = ['mass_den', 'atom_per_mol_1', 'atom_per_mol_2', 'atom_per_mol_3', 'atom_per_mol_4', 'atom_per_mol_5', 'mean_excit']  # Replace with your column names
 
+# Select columns to keep unchanged
+columns_to_keep = [col for col in X.columns if col not in columns_to_scale]
+
+# Separate features for scaling and those to keep as they are
+X_train_to_scale = X_train[columns_to_scale]
+X_val_to_scale = X_val[columns_to_scale]
+X_test_to_scale = X_test[columns_to_scale]
+
+X_train_remaining = X_train[columns_to_keep]
+X_val_remaining = X_val[columns_to_keep]
+X_test_remaining = X_test[columns_to_keep]
+
+# Standardize the selected columns only
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train_to_scale)
+X_val_scaled = scaler.transform(X_val_to_scale)
+X_test_scaled = scaler.transform(X_test_to_scale)
+
+# Concatenate standardized and unchanged columns
+X_train_final = np.hstack((X_train_scaled, X_train_remaining.values))
+X_val_final = np.hstack((X_val_scaled, X_val_remaining.values))
+X_test_final = np.hstack((X_test_scaled, X_test_remaining.values))
+print(X_train_final)
 # Define the hyperparameters and their values for searching
 param_grid = {
     'C': [0.1, 1, 10],  
@@ -39,7 +58,7 @@ svm = SVR(kernel='rbf')
 grid_search = GridSearchCV(estimator=svm, param_grid=param_grid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1)
 
 # Fit the GridSearchCV to the data (using only the training set and validation set)
-grid_search.fit(np.vstack((X_train_scaled, X_val_scaled)), pd.concat([y_train, y_val]))
+grid_search.fit(np.vstack((X_train_final, X_val_final)), pd.concat([y_train, y_val]))
 
 # Get the best parameters found by GridSearchCV
 best_params = grid_search.best_params_
@@ -47,17 +66,17 @@ print("Best Hyperparameters:", best_params)
 
 # Retrain the SVR model with the best parameters using the combined training and validation data
 best_svm_model = SVR(**best_params, kernel='rbf')
-best_svm_model.fit(np.vstack((X_train_scaled, X_val_scaled)), pd.concat([y_train, y_val]))
+best_svm_model.fit(np.vstack((X_train_final, X_val_final)), pd.concat([y_train, y_val]))
 
 # Evaluate the model on the test set
-mse = mean_squared_error(y_test, best_svm_model.predict(X_test_scaled))
+mse = mean_squared_error(y_test, best_svm_model.predict(X_test_final))
 print(f'Mean Squared Error on Test Set after Hyperparameter Tuning: {mse}')
 
 # Make predictions
-predictions = best_svm_model.predict(X_test_scaled)
+predictions = best_svm_model.predict(X_test_final)
 
 # Calculate the errors (residuals)
-errors = y_test - best_svm_model.predict(X_test_scaled)
+errors = y_test - best_svm_model.predict(X_test_final)
 
 # Plot box plots for errors
 plt.boxplot(errors)
